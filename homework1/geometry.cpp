@@ -21,12 +21,12 @@ Point::Point(const Point &pt)
     y = pt.y;
 }
 
-int Point::getX() 
+int Point::getX() const
 {
     return x;
 }
 
-int Point::getY()
+int Point::getY() const
 {
     return y;
 }
@@ -40,17 +40,17 @@ PolygonalChain::PolygonalChain(int n, Point* arr)
     }
 }
 
-Point PolygonalChain::getPoint(int i) 
+Point PolygonalChain::getPoint(int i) const
 {
     return points[i];
 }
 
-int PolygonalChain::getN() 
+int PolygonalChain::getN() const
 {
     return n;
 }
 
-int PolygonalChain::perimeter()
+double PolygonalChain::perimeter() const
 {
     int result = 0;
     for (int i = 0; i < n - 1; ++i) {
@@ -73,7 +73,7 @@ ClosedPolygonalChain::ClosedPolygonalChain(int n, Point* arr)
     }
 }
 
-int ClosedPolygonalChain::perimeter() 
+double ClosedPolygonalChain::perimeter() const
 {
     int result = 0;
     for (int i = 0; i < n; ++i) {
@@ -96,7 +96,7 @@ Polygon::Polygon(int n, Point* arr)
     }
 }
 
-float Polygon::area()
+float Polygon::area() const
 {
     float S = 0;
     for (int i = 0; i < n; ++i) {
@@ -124,7 +124,7 @@ Triangle::Triangle(int n, Point* arr)
     }
 }
 
-bool Triangle::hasRightAngle() 
+bool Triangle::hasRightAngle() const
 {
     if (length(&points[2], &points[0]) == sqrt(pow( length(&points[0], &points[1]), 2) + pow(length(&points[1], &points[2]),2))) 
     {
@@ -157,7 +157,7 @@ Trapezoid::Trapezoid(int n, Point* arr)
     }
 }
 
-float Trapezoid::height()
+float Trapezoid::height() const
 {
     return (2 * this->area()) / (length(&points[1], &points[2]) + length(&points[3], &points[0]));
 }

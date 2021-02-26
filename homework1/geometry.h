@@ -13,8 +13,8 @@ public:
 
     Point(const Point &pt);
 
-    int getX();
-    int getY();
+    int getX() const;
+    int getY() const;
 };
 
 float length(Point* first, Point* second);
@@ -26,11 +26,11 @@ protected:
 public:
     PolygonalChain(int n = 0, Point* arr = nullptr);
 
-    Point getPoint(int i);
+    Point getPoint(int i) const;
     
-    int getN();
+    int getN() const;
 
-    int perimeter();
+    virtual double perimeter() const;
 
     ~PolygonalChain();
 };
@@ -39,7 +39,7 @@ class ClosedPolygonalChain : public PolygonalChain {
 public:
     ClosedPolygonalChain(int n = 0, Point* arr = nullptr);
 
-    int perimeter();
+    double perimeter() const;
 
     ~ClosedPolygonalChain();
 };
@@ -49,7 +49,7 @@ class Polygon : public ClosedPolygonalChain {
 public:
     Polygon(int n = 0, Point* arr = nullptr);
 
-    float area();
+    float area() const;
 
     ~Polygon();
 };
@@ -60,7 +60,7 @@ friend float length(Point* first, Point* second);
 public:
     Triangle(int n = 0, Point* arr = nullptr);
 
-    bool hasRightAngle();
+    bool hasRightAngle() const;
 
     ~Triangle();
 };
@@ -73,7 +73,7 @@ friend float length(Point* first, Point* second);
 public:
     Trapezoid(int n = 0, Point* arr = nullptr);
 
-    float height();
+    float height() const;
 
     ~Trapezoid();
 
