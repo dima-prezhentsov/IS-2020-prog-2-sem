@@ -61,9 +61,11 @@ double PolygonalChain::perimeter() const
 
 PolygonalChain::~PolygonalChain()
 {
+	//delete[]
     delete points;
 }
 
+//inherit construct
 ClosedPolygonalChain::ClosedPolygonalChain(int n, Point* arr)
 {
     this->n = n;
@@ -84,6 +86,7 @@ double ClosedPolygonalChain::perimeter() const
 
 ClosedPolygonalChain::~ClosedPolygonalChain()
 {
+	//destructor base class only
     delete points;
 }
 
@@ -110,6 +113,7 @@ Polygon::~Polygon()
     delete points;
 }
 
+//const & 
 float length(Point* first, Point* second) 
 {
     return sqrt(pow(first->getX() - second->getX(), 2) + pow(first->getY() - second->getY(), 2));
@@ -126,6 +130,7 @@ Triangle::Triangle(int n, Point* arr)
 
 bool Triangle::hasRightAngle() const
 {
+	//without sqrt fuction
     if (length(&points[2], &points[0]) == sqrt(pow( length(&points[0], &points[1]), 2) + pow(length(&points[1], &points[2]),2))) 
     {
         return true;
@@ -167,6 +172,7 @@ Trapezoid::~Trapezoid()
     delete points;
 }
 
+//area and perimeter faster
 RegularPolygon::RegularPolygon(int n, Point* arr) 
 {
     this->n = n;
