@@ -54,25 +54,14 @@ double PolygonalChain::perimeter() const
 {
     int result = 0;
     for (int i = 0; i < n - 1; ++i) {
-        result += sqrt(pow(points[i].getX() - points[i + 1].getX(), 2) + pow(points[i].getY() - points[i + 1].getY(), 2));
+        result += sqrt(pow(points[i].getX() - points[i + 1].getX(), 2.0) + pow(points[i].getY() - points[i + 1].getY(), 2.0));
     }
     return result;
 }
 
 PolygonalChain::~PolygonalChain()
 {
-	//delete[]
-    delete points;
-}
-
-//inherit construct
-ClosedPolygonalChain::ClosedPolygonalChain(int n, Point* arr)
-{
-    this->n = n;
-    points = new Point[n];
-    for (int i = 0; i < n; ++i) {
-        points[i] = arr[i];
-    }
+    delete[] points;
 }
 
 double ClosedPolygonalChain::perimeter() const
@@ -84,22 +73,7 @@ double ClosedPolygonalChain::perimeter() const
     return result;
 }
 
-ClosedPolygonalChain::~ClosedPolygonalChain()
-{
-	//destructor base class only
-    delete points;
-}
-
-Polygon::Polygon(int n, Point* arr)
-{
-    this->n = n;
-    points = new Point[n];
-    for (int i = 0; i < n; ++i) {
-        points[i] = arr[i];
-    }
-}
-
-float Polygon::area() const
+double Polygon::area() const
 {
     float S = 0;
     for (int i = 0; i < n; ++i) {
@@ -108,81 +82,51 @@ float Polygon::area() const
     return abs(0.5 * S);
 }
 
-Polygon::~Polygon() 
+float Trapezoid::length(const Point &first, const Point &second) const
 {
-    delete points;
-}
-
-//const & 
-float length(Point* first, Point* second) 
-{
-    return sqrt(pow(first->getX() - second->getX(), 2) + pow(first->getY() - second->getY(), 2));
-}
-
-Triangle::Triangle(int n, Point* arr) 
-{
-    this->n = n;
-    points = new Point[n];
-    for (int i = 0; i < n; ++i) {
-        points[i] = arr[i];
-    }
+    return sqrt(pow(first.getX() - second.getX(), 2) + pow(first.getY() - second.getY(), 2));
 }
 
 bool Triangle::hasRightAngle() const
 {
-	//without sqrt fuction
-    if (length(&points[2], &points[0]) == sqrt(pow( length(&points[0], &points[1]), 2) + pow(length(&points[1], &points[2]),2))) 
+    if ((points[1].getX() - points[0].getX()) * (points[2].getX() - points[0].getX()) + (points[1].getY() - points[0].getY()) * (points[2].getY() - points[0].getY()) == 0)
     {
         return true;
     }
-    else if (length(&points[0], &points[1]) == sqrt(pow(length(&points[1], &points[2]), 2) + pow(length(&points[2], &points[0]),2))) 
+    if ((points[2].getX() - points[1].getX()) * (points[0].getX() - points[1].getX()) + (points[2].getY() - points[1].getY()) * (points[0].getY() - points[1].getY()) == 0)
     {
         return true;
     }
-    else if (length(&points[1], &points[2]) == sqrt(pow(length(&points[2], &points[0]), 2) + pow(length(&points[0], &points[1]),2))) 
+    if ((points[1].getX() - points[2].getX()) * (points[0].getX() - points[2].getX()) + (points[1].getY() - points[2].getY()) * (points[0].getY() - points[2].getY()) == 0)
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
-}
+    return false;
 
-Triangle::~Triangle() {
-    delete points;
-}
 
-Trapezoid::Trapezoid(int n, Point* arr) 
-{
-    this->n = n;
-    points = new Point[n];
-    for (int i = 0; i < n; ++i) {
-        points[i] = arr[i];
-    }
 }
 
 float Trapezoid::height() const
 {
-    return (2 * this->area()) / (length(&points[1], &points[2]) + length(&points[3], &points[0]));
+    return (2 * this->area()) / (length(points[1], points[2]) + length(points[3], points[0]));
 }
 
-Trapezoid::~Trapezoid() 
-{
-    delete points;
-}
-
-//area and perimeter faster
-RegularPolygon::RegularPolygon(int n, Point* arr) 
-{
-    this->n = n;
+Trapezoid::Trapezoid(const Trapezoid &tr)  : Polygon(tr) {
+    this->n = tr.n;
     points = new Point[n];
     for (int i = 0; i < n; ++i) {
-        points[i] = arr[i];
+        points[i] = tr.getPoint(i);
     }
 }
 
-RegularPolygon::~RegularPolygon() 
+double RegularPolygon::perimeter() const
 {
-    delete points;
+    double a = sqrt(pow(points[0].getX() - points[1].getX(), 2.0) + pow( points[0].getY() - points[1].getY(), 2.0));
+    return this->n * a;
+}
+
+double RegularPolygon::area() const
+{
+    double a = sqrt(pow(points[0].getX() - points[1].getX(), 2.0) + pow( points[0].getY() - points[1].getY(), 2.0));
+    return (a * a * this->n) / (4.0 * tan(M_PI / this->n));
 }

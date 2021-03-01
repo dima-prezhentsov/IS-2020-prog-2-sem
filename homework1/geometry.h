@@ -17,14 +17,12 @@ public:
     int getY() const;
 };
 
-float length(Point* first, Point* second);
-
 class PolygonalChain: public Point {
 protected:
     int n;
     Point* points;
 public:
-    PolygonalChain(int n = 0, Point* arr = nullptr);
+    explicit PolygonalChain(int n = 0, Point* arr = nullptr);
 
     Point getPoint(int i) const;
     
@@ -37,53 +35,57 @@ public:
 
 class ClosedPolygonalChain : public PolygonalChain {
 public:
-    ClosedPolygonalChain(int n = 0, Point* arr = nullptr);
+    explicit ClosedPolygonalChain(int n = 0, Point* arr = nullptr) : PolygonalChain(n, arr) {};
 
     double perimeter() const;
 
-    ~ClosedPolygonalChain();
+    ~ClosedPolygonalChain() = default;;
 };
 
 
 class Polygon : public ClosedPolygonalChain {
 public:
-    Polygon(int n = 0, Point* arr = nullptr);
+    explicit Polygon(int n = 0, Point* arr = nullptr) : ClosedPolygonalChain(n, arr) {};
 
-    float area() const;
+    virtual double area() const;
 
-    ~Polygon();
+    ~Polygon() = default;;
 };
 
 class Triangle : public Polygon {
 
-friend float length(Point* first, Point* second);
 public:
-    Triangle(int n = 0, Point* arr = nullptr);
+    explicit Triangle(int n = 0, Point* arr = nullptr) : Polygon(n, arr) {};
 
     bool hasRightAngle() const;
 
-    ~Triangle();
+    ~Triangle() = default;;
 };
 
 
 class Trapezoid : public Polygon {
-
-friend float length(Point* first, Point* second);
-
 public:
-    Trapezoid(int n = 0, Point* arr = nullptr);
+    explicit Trapezoid(int n = 0, Point* arr = nullptr) : Polygon(n, arr) {};
+
+    explicit Trapezoid(const Trapezoid &tr);
+
+    float length(const Point &first, const Point &second) const;
 
     float height() const;
 
-    ~Trapezoid();
+    ~Trapezoid() = default;;
 
 };
 
 class RegularPolygon : public Polygon {
 public:
-    RegularPolygon(int n = 0, Point* arr = nullptr);
+    explicit RegularPolygon(int n = 0, Point* arr = nullptr) : Polygon(n, arr) {};
 
-    ~RegularPolygon();
+    double perimeter() const;
+
+    double area() const;
+
+    ~RegularPolygon() = default;;
 };
 
 
