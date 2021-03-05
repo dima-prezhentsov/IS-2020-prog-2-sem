@@ -8,7 +8,7 @@ private:
 
 public:
     Point();
-    
+
     Point(int x, int y);
 
     Point(const Point &pt);
@@ -25,8 +25,10 @@ public:
     explicit PolygonalChain(int n = 0, Point* arr = nullptr);
 
     Point getPoint(int i) const;
-    //todo operator=
+    //fixed operator=
     int getN() const;
+
+    PolygonalChain &operator=(const PolygonalChain &other);
 
     virtual double perimeter() const;
 

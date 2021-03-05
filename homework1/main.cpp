@@ -51,4 +51,5 @@ void PolygonsCheck() {
 int main() {
     PointCheck();
     PolygonsCheck();
+    return 0;
 }

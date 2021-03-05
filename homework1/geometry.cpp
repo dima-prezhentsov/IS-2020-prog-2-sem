@@ -1,21 +1,21 @@
-#include <iostream> 
+#include <iostream>
 #include <math.h>
 #include "geometry.h"
 using namespace std;
 
-Point::Point() 
+Point::Point()
 {
     x = 0;
     y = 0;
 }
 
-Point::Point(int x, int y) 
+Point::Point(int x, int y)
 {
     this->x = x;
     this->y = y;
 }
 
-Point::Point(const Point &pt) 
+Point::Point(const Point &pt)
 {
     x = pt.x;
     y = pt.y;
@@ -31,7 +31,7 @@ int Point::getY() const
     return y;
 }
 
-PolygonalChain::PolygonalChain(int n, Point* arr) 
+PolygonalChain::PolygonalChain(int n, Point* arr)
 {
     this->n = n;
     points = new Point[n];
@@ -45,6 +45,21 @@ Point PolygonalChain::getPoint(int i) const
     return points[i];
 }
 
+PolygonalChain &PolygonalChain::operator=(const PolygonalChain &other) {
+    if (&other == this) {
+        return *this;
+    }
+
+    n = other.n;
+    delete[] points;
+    points = new Point[n];
+    for (int i = 0; i < n; ++i) {
+        points[i] = other.points[i];
+    }
+    return *this;
+}
+
+
 int PolygonalChain::getN() const
 {
     return n;
@@ -52,7 +67,7 @@ int PolygonalChain::getN() const
 
 double PolygonalChain::perimeter() const
 {
-    int result = 0;
+    double result = 0;
     for (int i = 0; i < n - 1; ++i) {
         result += sqrt(pow(points[i].getX() - points[i + 1].getX(), 2.0) + pow(points[i].getY() - points[i + 1].getY(), 2.0));
     }
@@ -64,25 +79,27 @@ PolygonalChain::~PolygonalChain()
     delete[] points;
 }
 
+
+
 double ClosedPolygonalChain::perimeter() const
 {
-	//todo perimeter from base class
-    int result = 0;
-    for (int i = 0; i < n; ++i) {
-        result += sqrt(pow(points[i].getX() - points[(i + 1) % n].getX(), 2) + pow(points[i].getY() - points[(i + 1) % n].getY(), 2));
-    }
+    //fixed perimeter from base class
+    double result = PolygonalChain::perimeter();
+
+    result += sqrt(pow(points[n - 1].getX() - points[0].getX(), 2) + pow(points[n - 1].getY() - points[0].getY(), 2));
+
     return result;
 }
 
 double Polygon::area() const
 {
-	//todo S is capital???
-	//todo you dont need float
-    float S = 0;
+    //fixed S is capital???
+    //fixed you dont need float
+    int s = 0;
     for (int i = 0; i < n; ++i) {
-        S += points[i].getX() * points[(i + 1) % n].getY() - points[(i + 1) % n].getX() * points[i].getY();
+        s += points[i].getX() * points[(i + 1) % n].getY() - points[(i + 1) % n].getX() * points[i].getY();
     }
-    return abs(0.5 * S);
+    return abs(0.5 * s);
 }
 
 float Trapezoid::length(const Point &first, const Point &second) const
