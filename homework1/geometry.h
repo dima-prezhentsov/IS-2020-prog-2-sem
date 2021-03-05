@@ -25,7 +25,7 @@ public:
     explicit PolygonalChain(int n = 0, Point* arr = nullptr);
 
     Point getPoint(int i) const;
-    
+    //todo operator=
     int getN() const;
 
     virtual double perimeter() const;

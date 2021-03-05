@@ -66,6 +66,7 @@ PolygonalChain::~PolygonalChain()
 
 double ClosedPolygonalChain::perimeter() const
 {
+	//todo perimeter from base class
     int result = 0;
     for (int i = 0; i < n; ++i) {
         result += sqrt(pow(points[i].getX() - points[(i + 1) % n].getX(), 2) + pow(points[i].getY() - points[(i + 1) % n].getY(), 2));
@@ -75,6 +76,8 @@ double ClosedPolygonalChain::perimeter() const
 
 double Polygon::area() const
 {
+	//todo S is capital???
+	//todo you dont need float
     float S = 0;
     for (int i = 0; i < n; ++i) {
         S += points[i].getX() * points[(i + 1) % n].getY() - points[(i + 1) % n].getX() * points[i].getY();
