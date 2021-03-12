@@ -130,13 +130,6 @@ float Trapezoid::height() const
     return (2 * this->area()) / (length(points[1], points[2]) + length(points[3], points[0]));
 }
 
-Trapezoid::Trapezoid(const Trapezoid &tr)  : Polygon(tr) {
-    this->n = tr.n;
-    points = new Point[n];
-    for (int i = 0; i < n; ++i) {
-        points[i] = tr.getPoint(i);
-    }
-}
 
 double RegularPolygon::perimeter() const
 {
