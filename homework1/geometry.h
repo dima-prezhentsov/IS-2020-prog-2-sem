@@ -31,7 +31,7 @@ public:
     PolygonalChain &operator=(const PolygonalChain &other);
 
     virtual double perimeter() const;
-
+    //todo virtual destructor
     ~PolygonalChain();
 };
 
@@ -40,7 +40,8 @@ public:
     explicit ClosedPolygonalChain(int n = 0, Point* arr = nullptr) : PolygonalChain(n, arr) {};
 
     double perimeter() const;
-
+	//todo copy constructor
+	//todo operator= default
     ~ClosedPolygonalChain() = default;;
 };
 

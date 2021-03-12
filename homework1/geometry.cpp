@@ -93,8 +93,7 @@ double ClosedPolygonalChain::perimeter() const
 
 double Polygon::area() const
 {
-    //fixed S is capital???
-    //fixed you dont need float
+
     int s = 0;
     for (int i = 0; i < n; ++i) {
         s += points[i].getX() * points[(i + 1) % n].getY() - points[(i + 1) % n].getX() * points[i].getY();
