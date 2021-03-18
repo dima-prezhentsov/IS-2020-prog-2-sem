@@ -25,13 +25,11 @@ public:
     explicit PolygonalChain(int n = 0, Point* arr = nullptr);
 
     Point getPoint(int i) const;
-    //fixed operator=
     int getN() const;
 
     PolygonalChain &operator=(const PolygonalChain &other);
 
     virtual double perimeter() const;
-    //fixed virtual destructor
     virtual ~PolygonalChain();
 };
 
@@ -40,9 +38,7 @@ public:
     explicit ClosedPolygonalChain(int n = 0, Point* arr = nullptr) : PolygonalChain(n, arr) {};
 
     double perimeter() const;
-    //fixed copy constructor
     ClosedPolygonalChain(const ClosedPolygonalChain &other) : PolygonalChain(other.n, other.points) {};
-    //fixed operator= default
     ClosedPolygonalChain &operator=(const ClosedPolygonalChain &other) = default;
 
     ~ClosedPolygonalChain() = default;;
