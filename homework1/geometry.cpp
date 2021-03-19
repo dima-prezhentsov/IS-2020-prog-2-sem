@@ -14,13 +14,7 @@ Point::Point(int x, int y)
     this->x = x;
     this->y = y;
 }
-
-//todo you should use default copy-constructor
-Point::Point(const Point &pt)
-{
-    x = pt.x;
-    y = pt.y;
-}
+//fixed you should use default copy-constructor
 
 int Point::getX() const
 {
@@ -84,6 +78,7 @@ PolygonalChain::~PolygonalChain()
 
 double ClosedPolygonalChain::perimeter() const
 {
+    //fixed perimeter from base class
     double result = PolygonalChain::perimeter();
 
     result += sqrt(pow(points[n - 1].getX() - points[0].getX(), 2) + pow(points[n - 1].getY() - points[0].getY(), 2));
