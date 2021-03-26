@@ -16,6 +16,7 @@ Polynomial::Polynomial(int minDegree_, int maxDegree_, int *coefficents_) {
     maxDegree = maxDegree_;
     coefficents = new int[maxDegree - minDegree + 1];
     result = "";
+    //todo not here
     stringstream tmp;
     tmp.str("");
     for (int i = 0; i < maxDegree - minDegree + 1; ++i) {
@@ -180,7 +181,7 @@ int Polynomial::getCoeff(int i) const {
     return coefficents[i - minDegree];
 }
 
-
+//todo O(n)
 double Polynomial::get(int value) {
     double sum = 0;
     int currentDegree = minDegree;
@@ -197,6 +198,7 @@ Polynomial &Polynomial::operator=(const Polynomial &p) {
     this->result = p.result;
     this->minDegree = p.minDegree;
     this->maxDegree = p.maxDegree;
+    //todo memory-leak with old coefficents
     this->coefficents = new int[this->maxDegree - this->minDegree + 1];
     for (int i = 0; i < this->maxDegree - this->minDegree + 1; ++i) {
         this->coefficents[i] = p.coefficents[i];
@@ -217,6 +219,7 @@ Polynomial &Polynomial::operator/(int value) const {
     for (int i = 0; i < newN; ++i) {
         newCoeff[i] /= value;
     }
+    //todo without pointers
     const auto result = new Polynomial(minDegree, maxDegree, newCoeff);
     return *result;
 }
@@ -244,6 +247,7 @@ int &Polynomial::operator[](int index) {
             newCoeff[i] = coefficents[j];
             ++j;
         }
+        //todo memory-leak once again
         coefficents = newCoeff;
         minDegree = index;
         return coefficents[0];
@@ -453,9 +457,6 @@ Polynomial &operator*(int value, const Polynomial &other) {
 Polynomial::~Polynomial() {
     delete[] coefficents;
 }
-
-
-
 
 
 

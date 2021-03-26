@@ -24,6 +24,8 @@ public:
 
     Polynomial &operator=(const Polynomial &other);
 
+    //todo friend function for +, -, *
+    //todo + - * returns Polynomial
     Polynomial &operator+(const Polynomial &other) const;
 
     Polynomial &operator-(const Polynomial &other) const;
@@ -34,6 +36,7 @@ public:
 
     Polynomial &operator*(const Polynomial &b) const;
 
+    //todo from /=
     Polynomial &operator/(int value) const;
 
     bool operator==(const Polynomial &second);
@@ -52,6 +55,7 @@ public:
 
     friend Polynomial &operator*(int value, const Polynomial &other);
 
+    //todo private method
     friend Polynomial &additition(Polynomial &a, const Polynomial &b, int sign);
 
     ~Polynomial();
