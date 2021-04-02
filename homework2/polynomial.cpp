@@ -15,142 +15,10 @@ Polynomial::Polynomial(int minDegree_, int maxDegree_, int *coefficents_) {
     minDegree = minDegree_;
     maxDegree = maxDegree_;
     coefficents = new int[maxDegree - minDegree + 1];
-    result = "";
-    //todo not here
-    stringstream tmp;
-    tmp.str("");
     for (int i = 0; i < maxDegree - minDegree + 1; ++i) {
         coefficents[i] = coefficents_[i];
     }
-    int currentDegree = maxDegree;
-    for (int i = maxDegree - minDegree; i >= 0; --i) {
-        if (i == maxDegree - minDegree) {
-            if (coefficents[i] != 0) {
-                if (coefficents[i] == 1 or coefficents[i] == -1) {
-                    if (currentDegree != 0) {
-                        if (coefficents[i] == 1) {
-                            if (currentDegree != 1) {
-                                tmp << "x^" << currentDegree;
-                            }
-                            else {
-                                tmp << "x";
-                            }
-                        }
-                        else {
-                            if (currentDegree != 1) {
-                                tmp << "-x^" << currentDegree;
-                            }
-                            else {
-                                tmp << "-x";
-                            }
-                        }
-                    }
-                    else {
-                        tmp << coefficents[i];
-                    }
-                }
-
-                else {
-                    if (currentDegree != 0) {
-                        if (currentDegree != 1) {
-                            tmp << coefficents[i] << "x^" << currentDegree;
-                        }
-                        else {
-                            tmp << coefficents[i] << "x";
-                        }
-                    }
-                    else {
-                        tmp << coefficents[i];
-                    }
-                }
-            }
-        }
-        else {
-            if (coefficents[i] != 0) {
-                if (tmp.str().empty()) {
-                    if (currentDegree != 0) {
-                        if (coefficents[i] != 1) {
-                            if (currentDegree != 1) {
-                                tmp << coefficents[i] << "x^" << currentDegree;
-                            }
-                            else {
-                                tmp << coefficents[i] << "x";
-                            }
-                        }
-                        else {
-                            if (currentDegree != 1) {
-                                tmp << "x^" << currentDegree;
-                            }
-                            else {
-                                tmp << "x";
-                            }
-                        }
-                    }
-                    else {
-                        tmp << coefficents[i];
-                    }
-                }
-                else {
-                    if (coefficents[i] > 0) {
-                        if (currentDegree != 0) {
-                            if (coefficents[i] != 1) {
-                                if (currentDegree != 1) {
-                                    tmp << "+" << coefficents[i] << "x^" << currentDegree;
-                                }
-                                else {
-                                    tmp << "+" << coefficents[i] << "x";
-                                }
-                            }
-                            else {
-                                if (currentDegree != 1) {
-                                    tmp << "+" << "x^" << currentDegree;
-                                }
-                                else {
-                                    tmp << "+" << "x";
-                                }
-                            }
-                        }
-                        else {
-                            tmp << "+" << coefficents[i];
-                        }
-                    }
-                    else {
-                        if (currentDegree != 0) {
-                            if (coefficents[i] != 1) {
-                                if (currentDegree != 1) {
-                                    tmp << coefficents[i] << "x^" << currentDegree;
-                                }
-                                else {
-                                    tmp << coefficents[i] << "x";
-                                }
-                            }
-                            else {
-                                if (currentDegree != 1) {
-                                    tmp << "x^" << currentDegree;
-                                }
-                                else {
-                                    tmp << "x";
-                                }
-                            }
-                        }
-                        else {
-                            tmp << coefficents[i];
-                        }
-                    }
-                }
-            }
-        }
-        --currentDegree;
-    }
-    if (tmp.str().empty()) {
-        result = "0";
-        coefficents = nullptr;
-    }
-    else {
-        tmp >> result;
-    }
-    tmp.str("");
-
+    //fixed not here
 }
 
 Polynomial::Polynomial(const Polynomial &other) {
@@ -173,24 +41,29 @@ Polynomial::Polynomial(const Polynomial &other) {
 
 }
 
-string Polynomial::getResult() const {
-    return this->result;
-}
 
-int Polynomial::getCoeff(int i) const {
-    return coefficents[i - minDegree];
-}
-
-//todo O(n)
-double Polynomial::get(int value) {
-    double sum = 0;
-    int currentDegree = minDegree;
-    for (int i = 0; i < maxDegree - minDegree + 1; ++i) {
-        sum += coefficents[i] * pow(value, currentDegree);
-        ++currentDegree;
+//fixed O(n)
+double Polynomial::get(int x0) const{
+    double res = 0;
+    int n = maxDegree - minDegree + 1;
+    int j = 0;
+    double number;
+    if (minDegree < 0) {
+        j = -minDegree;
+        double x_ = 1.0 / x0;
+        number = 1.0 / x0;
+        for (int i = j - 1; i >= 0; i--) {
+            res += x_ * coefficents[i];
+            x_ *= number;
+        }
     }
-
-    return sum;
+    number = x0;
+    x0 = 1;
+    for (int i = j; i < n; ++i) {
+        res += x0 * coefficents[i];
+        x0 *= number;
+    }
+    return res;
 }
 
 
@@ -198,30 +71,13 @@ Polynomial &Polynomial::operator=(const Polynomial &p) {
     this->result = p.result;
     this->minDegree = p.minDegree;
     this->maxDegree = p.maxDegree;
-    //todo memory-leak with old coefficents
+    //fixed memory-leak with old coefficents
+    delete [] coefficents;
     this->coefficents = new int[this->maxDegree - this->minDegree + 1];
     for (int i = 0; i < this->maxDegree - this->minDegree + 1; ++i) {
         this->coefficents[i] = p.coefficents[i];
     }
     return *this;
-}
-
-Polynomial &Polynomial::operator/(int value) const {
-    if (coefficents == nullptr) {
-        const auto result = new Polynomial();
-        return *result;
-    }
-    int newN = maxDegree - minDegree + 1;
-    int *newCoeff = new int[newN];
-    for (int i = 0; i < newN; ++i) {
-        newCoeff[i] = coefficents[i];
-    }
-    for (int i = 0; i < newN; ++i) {
-        newCoeff[i] /= value;
-    }
-    //todo without pointers
-    const auto result = new Polynomial(minDegree, maxDegree, newCoeff);
-    return *result;
 }
 
 
@@ -231,6 +87,7 @@ int Polynomial::operator[](int index) const {
     }
     return coefficents[index - minDegree];
 }
+
 
 int &Polynomial::operator[](int index) {
     if (index <= maxDegree and index >= minDegree) {
@@ -247,7 +104,8 @@ int &Polynomial::operator[](int index) {
             newCoeff[i] = coefficents[j];
             ++j;
         }
-        //todo memory-leak once again
+        //fixed memory-leak once again
+        delete [] coefficents;
         coefficents = newCoeff;
         minDegree = index;
         return coefficents[0];
@@ -261,6 +119,7 @@ int &Polynomial::operator[](int index) {
         for (int i = maxDegree - minDegree + 1; i < newN; ++i) {
             newCoeff[i] = 0;
         }
+        delete [] coefficents;
         coefficents = newCoeff;
         maxDegree = index;
         return coefficents[newN - 1];
@@ -268,17 +127,143 @@ int &Polynomial::operator[](int index) {
 }
 
 Polynomial Polynomial::operator-() const {
+    int* newCoeff = new int[maxDegree - minDegree + 1];
     for (int i = 0; i < maxDegree - minDegree + 1; ++i) {
-        coefficents[i] *= -1;
+        newCoeff[i] = coefficents[i] * -1;
     }
-    return *this;
+    return Polynomial(minDegree, maxDegree, newCoeff);
 }
 
 stringstream &operator<<(stringstream &stream, const Polynomial &p) {
-    stream << p.getResult();
+    int currentDegree = p.maxDegree;
+    if (p.coefficents == nullptr) {
+        stream << "0";
+        return stream;
+    }
+    for (int i = p.maxDegree - p.minDegree; i >= 0; --i) {
+        if (i == p.maxDegree - p.minDegree) {
+            if (p.coefficents[i] != 0) {
+                if (p.coefficents[i] == 1 or p.coefficents[i] == -1) {
+                    if (currentDegree != 0) {
+                        if (p.coefficents[i] == 1) {
+                            if (currentDegree != 1) {
+                                stream << "x^" << currentDegree;
+                            }
+                            else {
+                                stream << "x";
+                            }
+                        }
+                        else {
+                            if (currentDegree != 1) {
+                                stream << "-x^" << currentDegree;
+                            }
+                            else {
+                                stream << "-x";
+                            }
+                        }
+                    }
+                    else {
+                        stream << p.coefficents[i];
+                    }
+                }
+
+                else {
+                    if (currentDegree != 0) {
+                        if (currentDegree != 1) {
+                            stream << p.coefficents[i] << "x^" << currentDegree;
+                        }
+                        else {
+                            stream << p.coefficents[i] << "x";
+                        }
+                    }
+                    else {
+                        stream << p.coefficents[i];
+                    }
+                }
+            }
+        }
+        else {
+            if (p.coefficents[i] != 0) {
+                if (stream.str().empty()) {
+                    if (currentDegree != 0) {
+                        if (p.coefficents[i] != 1) {
+                            if (currentDegree != 1) {
+                                stream << p.coefficents[i] << "x^" << currentDegree;
+                            }
+                            else {
+                                stream << p.coefficents[i] << "x";
+                            }
+                        }
+                        else {
+                            if (currentDegree != 1) {
+                                stream << "x^" << currentDegree;
+                            }
+                            else {
+                                stream << "x";
+                            }
+                        }
+                    }
+                    else {
+                        stream << p.coefficents[i];
+                    }
+                }
+                else {
+                    if (p.coefficents[i] > 0) {
+                        if (currentDegree != 0) {
+                            if (p.coefficents[i] != 1) {
+                                if (currentDegree != 1) {
+                                    stream << "+" << p.coefficents[i] << "x^" << currentDegree;
+                                }
+                                else {
+                                    stream << "+" << p.coefficents[i] << "x";
+                                }
+                            }
+                            else {
+                                if (currentDegree != 1) {
+                                    stream << "+" << "x^" << currentDegree;
+                                }
+                                else {
+                                    stream << "+" << "x";
+                                }
+                            }
+                        }
+                        else {
+                            stream << "+" << p.coefficents[i];
+                        }
+                    }
+                    else {
+                        if (currentDegree != 0) {
+                            if (p.coefficents[i] != 1) {
+                                if (currentDegree != 1) {
+                                    stream << p.coefficents[i] << "x^" << currentDegree;
+                                }
+                                else {
+                                    stream << p.coefficents[i] << "x";
+                                }
+                            }
+                            else {
+                                if (currentDegree != 1) {
+                                    stream << "x^" << currentDegree;
+                                }
+                                else {
+                                    stream << "x";
+                                }
+                            }
+                        }
+                        else {
+                            stream << p.coefficents[i];
+                        }
+                    }
+                }
+            }
+        }
+        --currentDegree;
+    }
+    if (stream.str().empty()) {
+        stream << "0";
+    }
     return stream;
 }
-
 
 bool Polynomial::operator==(const Polynomial &second) {
     if (coefficents == nullptr and second.coefficents != nullptr) {
@@ -329,6 +314,7 @@ bool Polynomial::operator==(const Polynomial &second) {
     }
     return true;
 }
+
 
 bool Polynomial::operator!=(const Polynomial &second) {
     return not(*this == second);
@@ -386,35 +372,62 @@ Polynomial &Polynomial::operator-=(const Polynomial &other) {
     return additition(*this, other, -1);
 }
 
-Polynomial &Polynomial::operator+(const Polynomial &b) const {
-    Polynomial c(*this);
+Polynomial &Polynomial::operator/=(int value) {
+    if (coefficents == nullptr) {
+        minDegree = 0;
+        maxDegree = 0;
+        delete [] coefficents;
+        coefficents = nullptr;
+        return *this;
+    }
+    int newN = maxDegree - minDegree + 1;
+    int *newCoeff = new int[newN];
+    for (int i = 0; i < newN; ++i) {
+        newCoeff[i] = coefficents[i];
+    }
+    for (int i = 0; i < newN; ++i) {
+        newCoeff[i] /= value;
+    }
+    //fixed without pointers
+    delete [] coefficents;
+    coefficents = newCoeff;
+    return *this;
+}
+
+Polynomial operator+(const Polynomial &a, const Polynomial &b) {
+    Polynomial c(a);
     return c += b;
 }
 
-Polynomial &Polynomial::operator-(const Polynomial &b) const {
-    Polynomial c(*this);
+Polynomial operator-(const Polynomial &a, const Polynomial &b) {
+    Polynomial c(a);
     return c -= b;
 }
 
-Polynomial &Polynomial::operator*(const Polynomial &other) const {
-    if (maxDegree == 0 and minDegree == 0 and (coefficents == nullptr or coefficents[0] == 0)) {
-        return const_cast<Polynomial &>(*this);
+Polynomial operator/(const Polynomial &a, int value) {
+    Polynomial c(a);
+    return c /= value;
+}
+
+Polynomial operator*(const Polynomial &a, const Polynomial &other) {
+    if (a.maxDegree == 0 and a.minDegree == 0 and (a.coefficents == nullptr or a.coefficents[0] == 0)) {
+        return const_cast<Polynomial &>(a);
     }
     if (other.maxDegree == 0 and other.minDegree == 0 and (other.coefficents == nullptr or other.coefficents[0] == 0)) {
         return const_cast<Polynomial &>(other);
     }
-    int newN = maxDegree + other.maxDegree - (minDegree + other.minDegree) + 1;
+    int newN = a.maxDegree + other.maxDegree - (a.minDegree + other.minDegree) + 1;
     int *newCoeff = new int[newN];
     for (int i = 0; i < newN; ++i) newCoeff[i] = 0;
-    int n1 = maxDegree - minDegree + 1;
+    int n1 = a.maxDegree - a.minDegree + 1;
     int n2 = other.maxDegree - other.minDegree + 1;
     for (int i = 0; i < n1; ++i) {
         for (int j = 0; j < n2; ++j) {
-            newCoeff[i + j] += coefficents[i] * other.coefficents[j];
+            newCoeff[i + j] += a.coefficents[i] * other.coefficents[j];
         }
     }
-    auto res = new Polynomial(minDegree + other.minDegree, maxDegree + other.maxDegree, newCoeff);
-    return *res;
+    auto res = Polynomial(a.minDegree + other.minDegree, a.maxDegree + other.maxDegree, newCoeff);
+    return res;
 
 }
 
@@ -457,8 +470,3 @@ Polynomial &operator*(int value, const Polynomial &other) {
 Polynomial::~Polynomial() {
     delete[] coefficents;
 }
-
-
-
-
-

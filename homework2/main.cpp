@@ -16,7 +16,6 @@ void checkOut() {
     ss << Polynomial(-2, 2, new int[5]{1, 0, 0, 0, 1}) << " ";
     assert(ss.str() == "3x^2+2x+1 4x^2-3x -x^2-3+x^-1 0 -3x^2+3x x^2+x^-2 ");
 }
-
 void PolynomialOperators() {
     stringstream ss;
     const auto a =  Polynomial(0, 2, new int[3]{1, 2, 3}) ;
@@ -41,17 +40,17 @@ void PolynomialOperators() {
     c[5] = 3;
     assert(c.get(4) == 3053.25);
     assert((-c) == (-(-(-c))));
-    auto h = -c;
-    assert(c[5] == 3 && h[5] == -3);
     assert((-c)[5] == -3);
-   	auto g = b;
-   	g[3] = 0;
-   	assert(g == b);
+    auto g = b;
+    g[3] = 0;
+    assert(g == b);
 }
 
 
 int main() {
     checkOut();
     PolynomialOperators();
+
+
     return 0;
 }

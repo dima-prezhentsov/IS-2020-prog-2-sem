@@ -9,6 +9,8 @@ private:
     int maxDegree;
     int* coefficents;
     string result;
+    //fixed private method
+    friend Polynomial &additition(Polynomial &a, const Polynomial &b, int sign);
 public:
     Polynomial();
 
@@ -16,28 +18,26 @@ public:
 
     Polynomial(const Polynomial &other);
 
-    string getResult() const;
-
-    int getCoeff(int i) const;
-
-    double get(int value);
+    double get(int value) const;
 
     Polynomial &operator=(const Polynomial &other);
 
-    //todo friend function for +, -, *
-    //todo + - * returns Polynomial
-    Polynomial &operator+(const Polynomial &other) const;
+    //fixed friend function for +, -, *
+    //fixed + - * returns Polynomial
+    friend Polynomial operator+(const Polynomial &a, const Polynomial &other);
 
-    Polynomial &operator-(const Polynomial &other) const;
+    friend Polynomial operator-(const Polynomial &a, const Polynomial &other);
+
+    friend Polynomial operator*(const Polynomial &a, const Polynomial &b);
+
+    //fixed from /=
+    friend Polynomial operator/(const Polynomial &a, int value);
 
     Polynomial &operator+=(const Polynomial &other);
 
     Polynomial &operator-=(const Polynomial &other);
 
-    Polynomial &operator*(const Polynomial &b) const;
-
-    //todo from /=
-    Polynomial &operator/(int value) const;
+    Polynomial &operator/=(int value);
 
     bool operator==(const Polynomial &second);
 
@@ -54,9 +54,6 @@ public:
     friend Polynomial &operator*(const Polynomial &other, int value);
 
     friend Polynomial &operator*(int value, const Polynomial &other);
-
-    //todo private method
-    friend Polynomial &additition(Polynomial &a, const Polynomial &b, int sign);
 
     ~Polynomial();
 
