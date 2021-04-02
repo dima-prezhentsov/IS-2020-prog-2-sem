@@ -48,9 +48,9 @@ public:
 
     friend stringstream &operator<<(stringstream &stream, const Polynomial& p);
 
-    friend Polynomial &operator*(const Polynomial &other, int value);
+    friend Polynomial operator*(const Polynomial &other, int value);
 
-    friend Polynomial &operator*(int value, const Polynomial &other);
+    friend Polynomial operator*(int value, const Polynomial &other);
 
     ~Polynomial();
 
