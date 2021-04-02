@@ -22,15 +22,12 @@ public:
 
     Polynomial &operator=(const Polynomial &other);
 
-    //fixed friend function for +, -, *
-    //fixed + - * returns Polynomial
     friend Polynomial operator+(const Polynomial &a, const Polynomial &other);
 
     friend Polynomial operator-(const Polynomial &a, const Polynomial &other);
 
     friend Polynomial operator*(const Polynomial &a, const Polynomial &b);
 
-    //fixed from /=
     friend Polynomial operator/(const Polynomial &a, int value);
 
     Polynomial &operator+=(const Polynomial &other);

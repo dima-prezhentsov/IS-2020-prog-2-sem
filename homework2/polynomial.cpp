@@ -18,7 +18,6 @@ Polynomial::Polynomial(int minDegree_, int maxDegree_, int *coefficents_) {
     for (int i = 0; i < maxDegree - minDegree + 1; ++i) {
         coefficents[i] = coefficents_[i];
     }
-    //fixed not here
 }
 
 Polynomial::Polynomial(const Polynomial &other) {
@@ -42,7 +41,6 @@ Polynomial::Polynomial(const Polynomial &other) {
 }
 
 
-//fixed O(n)
 double Polynomial::get(int x0) const{
     double res = 0;
     int n = maxDegree - minDegree + 1;
@@ -71,7 +69,6 @@ Polynomial &Polynomial::operator=(const Polynomial &p) {
     this->result = p.result;
     this->minDegree = p.minDegree;
     this->maxDegree = p.maxDegree;
-    //fixed memory-leak with old coefficents
     delete [] coefficents;
     this->coefficents = new int[this->maxDegree - this->minDegree + 1];
     for (int i = 0; i < this->maxDegree - this->minDegree + 1; ++i) {
@@ -104,7 +101,6 @@ int &Polynomial::operator[](int index) {
             newCoeff[i] = coefficents[j];
             ++j;
         }
-        //fixed memory-leak once again
         delete [] coefficents;
         coefficents = newCoeff;
         minDegree = index;
@@ -381,6 +377,7 @@ Polynomial &Polynomial::operator/=(int value) {
         return *this;
     }
     int newN = maxDegree - minDegree + 1;
+    //todo why do you need new array?Oo
     int *newCoeff = new int[newN];
     for (int i = 0; i < newN; ++i) {
         newCoeff[i] = coefficents[i];
@@ -388,7 +385,6 @@ Polynomial &Polynomial::operator/=(int value) {
     for (int i = 0; i < newN; ++i) {
         newCoeff[i] /= value;
     }
-    //fixed without pointers
     delete [] coefficents;
     coefficents = newCoeff;
     return *this;
@@ -444,6 +440,7 @@ Polynomial &operator*(const Polynomial &other, int value) {
     for (int i = 0; i < newN; ++i) {
         newCoeff[i] *= value;
     }
+    //todo everywhere pointers
     const auto result = new Polynomial(other.minDegree, other.maxDegree, newCoeff);
     return *result;
 }
@@ -461,6 +458,7 @@ Polynomial &operator*(int value, const Polynomial &other) {
     for (int i = 0; i < newN; ++i) {
         newCoeff[i] *= value;
     }
+    //todo without pointers
     const auto result = new Polynomial(other.minDegree, other.maxDegree, newCoeff);
     return *result;
 }
