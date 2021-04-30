@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Libs/pugixml-1.11/src/pugixml.hpp"
+#include "pugixml.hpp"
 #include "analysis.h"
 #include <vector>
 #include <map>
