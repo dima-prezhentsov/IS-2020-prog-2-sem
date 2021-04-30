@@ -148,7 +148,7 @@ void LongestRoute(vector<TransportStation>& allStations) {
     string result_BUS;
     string result_TRAM;
     string result_TROLLEYBUS;
-
+    //todo copy-paste
     for (auto& station : allStations) {
         if (!station.getStreet().empty()) {
             if (station.getTypeOfVehicle() == "Автобус") {
@@ -169,6 +169,7 @@ void LongestRoute(vector<TransportStation>& allStations) {
 
         }
     }
+    //todo use unpacking for pairs
     for (const auto& rt : Routes_BUS) {
         for (size_t i = 0; i < rt.second.size() - 1; ++i) {
             distance_BUS[rt.first] += sqrt(pow(rt.second[i + 1].getX() - rt.second[i].getX(), 2.0) + pow(rt.second[i + 1].getY() - rt.second[i].getY(), 2.0));
