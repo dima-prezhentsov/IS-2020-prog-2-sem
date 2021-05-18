@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-
+//todo dont use using namespace std;
 template <class Iterator, class Predicate>
 bool allOf(Iterator begin, Iterator end, Predicate predicate) {
     for (Iterator it = begin; it != end; ++it) {
