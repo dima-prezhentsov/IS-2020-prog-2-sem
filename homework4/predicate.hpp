@@ -2,8 +2,8 @@
 #define LABA4_PREDICATE_HPP
 #include <iostream>
 
-using namespace std;
-//todo dont use using namespace std;
+//fixed dont use using namespace std
+
 template <class Iterator, class Predicate>
 bool allOf(Iterator begin, Iterator end, Predicate predicate) {
     for (Iterator it = begin; it != end; ++it) {
@@ -37,7 +37,7 @@ bool oneOf(Iterator begin, Iterator end, Predicate predicate) {
     return true;
 }
 
-template <class Iterator, class Predicate = less<>>
+template <class Iterator, class Predicate = std::less<>>
 bool isSorted(Iterator begin, Iterator end, Predicate predicate = Predicate()) {
     for (Iterator it = begin; it != end - 1; ++it) {
         if (!predicate(*it, *(it + 1))) return false;
