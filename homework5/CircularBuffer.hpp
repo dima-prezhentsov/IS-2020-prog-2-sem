@@ -90,6 +90,7 @@ public:
         if (count != 0) {
             return *ptrFirst;
         }
+        //todo throw normal exception not string
         throw "buffer is empty";
     }
 
@@ -100,6 +101,7 @@ public:
         throw "buffer is empty";
     }
 
+    //todo information about size and index in exception
     T operator[](int ind) const {
         if (ind < 0 or ind >= count) {
             throw "index out of range";
