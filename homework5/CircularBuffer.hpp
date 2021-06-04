@@ -1,158 +1,152 @@
 #ifndef LABA5_CIRCULARBUFFER_HPP
 #define LABA5_CIRCULARBUFFER_HPP
 #include <iostream>
+#include <string>
 
-using namespace std;
 
 template<class T>
 class CircularBuffer {
+private:
+    int n;
+    T* data;
+    T* beginOfBuffer;
+    T* endOfBuffer;
+    T* ptrFirst = nullptr;
+    T* ptrLast = nullptr;
+    int count = 0;
 public:
     class Iterator;
-    explicit CircularBuffer(size_t n_)
+    explicit CircularBuffer(int n_) : n(n_)
     {
-        n = n_;
-        data = new T(n);
+        data = new T[n + 1];
         beginOfBuffer = &data[0];
-        endOfBuffer = &data[n - 1];
+        endOfBuffer = &data[n];
     }
     void get() {
         for (int i = 0; i < count; ++i) {
-            cout << *(beginOfBuffer + (ptrFirst - beginOfBuffer + i) % n) << " ";
+            std::cout << *(beginOfBuffer + (ptrFirst - beginOfBuffer + i) % n) << " ";
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 
     void addFirst(T value) {
         if (count == 0) {
             ptrFirst = beginOfBuffer;
-            ptrLast = beginOfBuffer;
             *ptrFirst = value;
+            ptrLast = &(*(++Iterator(beginOfBuffer, beginOfBuffer, endOfBuffer)));
         }
         else {
-            if (ptrFirst == beginOfBuffer) {
-                ptrFirst = endOfBuffer;
+            auto tmp = Iterator(ptrFirst, beginOfBuffer, endOfBuffer);
+            --tmp;
+            *tmp = value;
+            ptrFirst = &(*tmp);
+            if (ptrFirst == ptrLast) {
+                ptrLast = &(*(--Iterator(ptrLast, beginOfBuffer, endOfBuffer)));
             }
-            else --ptrFirst;
-            *ptrFirst = value;
         }
-        if (count == n) {
-            if (ptrLast == beginOfBuffer) {
-                ptrLast = endOfBuffer;
-            }
-            else --ptrLast;
-        }
-        if (count < n) {
+        if (count != n) {
             ++count;
         }
     }
 
     void addLast(T value) {
         if (count == 0) {
-            ptrLast = beginOfBuffer;
             ptrFirst = beginOfBuffer;
             *ptrLast = value;
+            ptrLast = &(*(++Iterator(beginOfBuffer, beginOfBuffer, endOfBuffer)));
         }
         else {
-            if (ptrLast == endOfBuffer) {
-                ptrLast = beginOfBuffer;
-            }
-            else ++ptrLast;
             *ptrLast = value;
-        }
-        if (count == n) {
-            if (ptrFirst == endOfBuffer) {
-                ptrFirst = beginOfBuffer;
+            ptrLast = &(*(++Iterator(ptrLast, beginOfBuffer, endOfBuffer)));
+            if (ptrLast == ptrFirst) {
+                ptrFirst = &(*(++Iterator(ptrFirst, beginOfBuffer, endOfBuffer)));
             }
-            else ++ptrFirst;
         }
-        if (count < n) {
+        if (count != n) {
             ++count;
         }
     }
 
     void delFirst() {
-        if (ptrFirst == endOfBuffer) {
-            ptrFirst = beginOfBuffer;
+        if (count == 0)
+            throw std::out_of_range("Buffer is empty!");
+        else {
+            if (ptrFirst == ptrLast) {
+                ptrFirst = &(*(++Iterator(ptrFirst, beginOfBuffer, endOfBuffer)));
+                ptrLast = &(*(++Iterator(ptrFirst, beginOfBuffer, endOfBuffer)));
+            }
+            else
+                ptrFirst = &(*(++Iterator(ptrFirst, beginOfBuffer, endOfBuffer)));
+            --count;
         }
-        else ++ptrFirst;
-        --count;
     }
 
     void delLast() {
-        if (ptrLast == beginOfBuffer) {
-            ptrLast = endOfBuffer;
+        if (count == 0)
+            throw std::out_of_range("Buffer is empty!");
+        else {
+            if (ptrLast == ptrFirst) {
+                ptrLast = &(*(--Iterator(ptrLast, beginOfBuffer, endOfBuffer)));
+                ptrFirst = ptrLast;
+            }
+            else
+                ptrLast = &(*(--Iterator(ptrLast, beginOfBuffer, endOfBuffer)));
+            --count;
         }
-        else --ptrLast;
-        --count;
     }
 
-    T first() {
+    void changeCapacity(int newN) {
+        T* copyData = new T[newN + 1];
+        int k = 0;
+        for (auto it = this->begin(); it != this->end(); ++it) {
+            copyData[k] = *it;
+            ++k;
+        }
+        delete [] data;
+        data = copyData;
+        ptrFirst = copyData;
+        ptrLast = copyData + k;
+        n = newN;
+        beginOfBuffer = &data[0];
+        endOfBuffer = &data[n];
+    }
+
+    //fixed information about size and index in exception
+    T& operator[](int ind) {
+        if (ind < 0 or ind >= count) {
+            throw std::out_of_range("Element " + std::to_string(ind + 1) + " not available there are " + std::to_string(count) + " elements in buffer");
+        }
+        return *(Iterator(ptrFirst, beginOfBuffer, endOfBuffer) + ind);
+    }
+
+    T& operator[](int ind) const {
+        if (ind < 0 or ind >= count) {
+            throw std::out_of_range("Element " + std::to_string(ind + 1) + " not available there are " + std::to_string(count) + " elements in buffer");
+        }
+        return *(Iterator(ptrFirst, beginOfBuffer, endOfBuffer) + ind);
+    }
+
+    T first() const {
         if (count != 0) {
             return *ptrFirst;
         }
-        //todo throw normal exception not string
-        throw "buffer is empty";
+        //fixed throw normal exception not string
+        throw std::out_of_range("Buffer is empty");
     }
 
-    T last() {
+    T last() const {
         if (count != 0) {
-            return *ptrLast;
+            return *(--Iterator(ptrLast, beginOfBuffer, endOfBuffer));
         }
-        throw "buffer is empty";
+        throw std::out_of_range("Buffer is empty");
     }
 
-    //todo information about size and index in exception
-    T operator[](int ind) const {
-        if (ind < 0 or ind >= count) {
-            throw "index out of range";
-        }
-        return *(beginOfBuffer + (ptrFirst - beginOfBuffer + ind) % n);
-    }
 
-    T& operator[](int ind) {
-        return *(beginOfBuffer + (ptrFirst - beginOfBuffer + ind) % n);
+    Iterator begin() const {
+        return Iterator(ptrFirst, beginOfBuffer, endOfBuffer);
     }
-
-    void changeCapacity(size_t newN) {
-        T* copyData = new T[newN];
-        if (newN < count) {
-            for (size_t i = 0; i < newN; ++i) {
-                copyData[i] = *(beginOfBuffer + (ptrFirst - beginOfBuffer + i) % n);
-            }
-            delete [] data;
-            this->data = new T[newN];
-            for (size_t i = 0; i < newN; ++i) {
-                this->data[i] = copyData[i];
-            }
-            n = newN;
-            count = newN;
-            ptrFirst = &data[0];
-            ptrLast = &data[n - 1];
-            beginOfBuffer = &data[0];
-            endOfBuffer = &data[n - 1];
-        }
-        else {
-            for (size_t i = 0; i < count; ++i) {
-                copyData[i] = *(beginOfBuffer + (ptrFirst - beginOfBuffer + i) % n);
-            }
-            delete [] data;
-            this->data = new T[newN];
-            for (size_t i = 0; i < newN; ++i) {
-                this->data[i] = copyData[i];
-            }
-            n = newN;
-            ptrFirst = &data[0];
-            ptrLast = &data[count - 1];
-            beginOfBuffer = &data[0];
-            endOfBuffer = &data[n - 1];
-        }
-    }
-
-    Iterator begin() {
-        return Iterator(ptrFirst, beginOfBuffer, endOfBuffer, n, count, ptrFirst, ptrLast);
-    }
-    Iterator end() {
-        return Iterator(nullptr, beginOfBuffer, endOfBuffer, n, count, ptrFirst, ptrLast);
+    Iterator end() const {
+        return Iterator(ptrLast, beginOfBuffer, endOfBuffer);
     }
 
     ~CircularBuffer() {
@@ -164,13 +158,9 @@ public:
         T* ptr;
         T* endBuf;
         T* beginBuf;
-        size_t size;
-        size_t countBuf;
-        T* head;
-        T* tail;
     public:
         using iterator_category = std::random_access_iterator_tag;
-        using difference_type = std::ptrdiff_t;
+        using difference_type = int;
         using value_type = T;
         using pointer = value_type*;
         using reference = value_type&;
@@ -179,158 +169,120 @@ public:
 
         Iterator(const Iterator&) = default;
 
-        Iterator& operator=(const Iterator&) = default;
+        Iterator& operator=(const Iterator& other) {
+            auto tmp = other.ptr;
+            this->ptr = tmp;
+            return *this;
+        }
 
-        Iterator(T* ptr_, T* beginBuf_, T* endBuf_, size_t size_, size_t countBuf_, T* head_, T* tail_) :
-            ptr(ptr_),
-            beginBuf(beginBuf_),
-            endBuf(endBuf_),
-            size(size_),
-            countBuf(countBuf_),
-            head(head_),
-            tail(tail_)
-        {}
+        explicit Iterator(T* ptr_, T* beginBuf_, T* endBuf_) :
+                ptr(ptr_),
+                beginBuf(beginBuf_),
+                endBuf(endBuf_)
+                {}
 
-        Iterator operator++() {
-            if (ptr == nullptr) {
-                ptr = head;
-                return *this;
-            }
-            if (ptr == tail) {
-                ptr = nullptr;
-                return *this;
-            }
-            if (ptr == endBuf) {
+        Iterator& operator++() {
+            if (ptr == endBuf)
                 ptr = beginBuf;
-            }
             else ++ptr;
             return *this;
         }
 
-        Iterator operator++(int i) {
+        const Iterator operator++(int) {
             auto old = *this;
-            if (ptr == nullptr) {
-                ptr = head;
-                return old;
-            }
-            if (ptr == tail) {
-                ptr = nullptr;
-                return *this;
-            }
-            if (ptr == endBuf) {
-                ptr = beginBuf;
-            }
-            else ++ptr;
+            ++(*this);
             return old;
         }
 
-        Iterator operator--() {
-            if (ptr == nullptr) {
-                ptr = tail;
-                return *this;
-            }
-            if (ptr == tail) {
-                ptr = nullptr;
-                return *this;
-            }
-            if (ptr == beginBuf) {
+        Iterator& operator--() {
+            if (ptr == beginBuf)
                 ptr = endBuf;
-            }
             else --ptr;
             return *this;
         }
 
-        Iterator operator--(int i) {
+        const Iterator operator--(int) {
             auto old = *this;
-            if (ptr == nullptr) {
-                ptr = tail;
-                return *this;
-            }
-            if (ptr == tail) {
-                ptr = nullptr;
-                return *this;
-            }
-            if (ptr == beginBuf) {
-                ptr = endBuf;
-            }
-            else --ptr;
+            --(*this);
             return old;
-        }
-
-        reference operator[](difference_type ind) {
-            if (ind < 0 or ind > size) {
-                throw "index out of range";
-            }
-            return *(beginBuf + (ptr - beginBuf + ind) % size);
         }
 
         reference operator*() {
             return *ptr;
         }
+
         Iterator& operator+=(difference_type value) {
-            if (ptr == tail) {
-                ptr = nullptr;
+            if (value == 0) {
                 return *this;
             }
-            ptr = beginBuf + (ptr - beginBuf + value) % size;
+            int k = 0;
+            while (k < value) {
+                if (ptr == endBuf)
+                    ptr = beginBuf;
+                else ++ptr;
+                ++k;
+            }
             return *this;
         }
+
         Iterator& operator-=(difference_type value) {
-            if (ptr == tail) {
-                ptr = nullptr;
+            if (value == 0) {
                 return *this;
             }
-            if (ptr - beginBuf - value < 0) {
-                ptr = endBuf - (-1 * (ptr - beginBuf - value + 1)) % size;
-            }
-            else {
-                ptr = beginBuf + (ptr - beginBuf - value);
+            int k = 0;
+            while (k < value) {
+                if (ptr == beginBuf)
+                    ptr = endBuf;
+                else --ptr;
+                ++k;
             }
             return *this;
         }
 
-        Iterator operator+(int value) {
-            if (beginBuf + (ptr - beginBuf + value) % size == tail) {
-                return Iterator(nullptr, beginBuf, endBuf, size, countBuf, head, tail);
+        friend Iterator operator+(Iterator it, Iterator::difference_type value) {
+            it += value;
+            return it;
+        }
+
+        friend Iterator operator+(Iterator::difference_type value, Iterator it) {
+            return it + value;
+        }
+
+        friend Iterator operator-(Iterator it, Iterator::difference_type value) {
+            it -= value;
+            return it;
+        }
+
+        friend Iterator::difference_type operator-(const Iterator& leftIt, const Iterator& rightIt) {
+            int k = 0;
+            auto tmp = leftIt;
+            while (tmp != rightIt) {
+                --tmp;
+                ++k;
             }
-            else {
-                T* newPtr = beginBuf + (ptr - beginBuf + value) % size;
-                return Iterator(newPtr, beginBuf, endBuf, size, countBuf, head, tail);
-            }
-        }
-
-        bool operator<(const Iterator& other) {
-            return this->ptr < other.ptr;
-        }
-        bool operator>(const Iterator& other) {
-            return this->ptr > other.ptr;
-        }
-        bool operator<=(const Iterator& other) {
-            return !(this->ptr > other.ptr);
-        }
-        bool operator>=(const Iterator& other) {
-            return !(this->ptr < other.ptr);
-        }
-        bool operator==(const Iterator& other) {
-            return this->ptr == other.ptr;
-        }
-        bool operator!=(const Iterator& other) {
-            return !(this->ptr == other.ptr);
+            return k;
         }
 
 
-
-
+        friend bool operator<(const Iterator& leftIt, const Iterator& rightIt) {
+            return leftIt.ptr < rightIt.ptr;
+        }
+        friend bool operator>(const Iterator& leftIt, const Iterator& rightIt) {
+            return leftIt.ptr > rightIt.ptr;
+        }
+        friend bool operator<=(const Iterator& leftIt, const Iterator& rightIt) {
+            return !(leftIt > rightIt);
+        }
+        friend bool operator>=(const Iterator& leftIt, const Iterator& rightIt) {
+            return !(leftIt < rightIt);
+        }
+        friend bool operator==(const Iterator& leftIt, const Iterator& rightIt) {
+            return leftIt.ptr == rightIt.ptr;
+        }
+        friend bool operator!=(const Iterator& leftIt, const Iterator& rightIt) {
+            return !(leftIt == rightIt);
+        }
     };
-
-private:
-    size_t n;
-    T* data = nullptr;
-    T* beginOfBuffer;
-    T* endOfBuffer;
-    T* ptrFirst = nullptr;
-    T* ptrLast = nullptr;
-    size_t count = 0;
 
 };
 
