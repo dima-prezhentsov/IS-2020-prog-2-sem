@@ -33,5 +33,6 @@ CircularBuffer.hpp:178:18: warning:   when initialized here [-Wreorder]
   178 |         explicit Iterator(T* ptr_, T* beginBuf_, T* endBuf_) :
       |                  ^~~~~~~~
 
+Push with errors was succesfull
 
 
