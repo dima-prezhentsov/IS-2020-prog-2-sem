@@ -1,247 +1,37 @@
 Pulling https://github.com/dima-prezhentsov/IS-2020-prog-2-sem/homework5
 Pull finished
-main.cpp: In function 'std::ostream& operator<<(std::ostream&, const CircularBuffer<int>&)':
-main.cpp:65:30: error: passing 'const CircularBuffer<int>' as 'this' argument discards qualifiers [-fpermissive]
-   65 |     for (auto iter = a.begin(); iter != a.end(); ++iter){
-      |                              ^
+It's compiled
+Element 1 not available there are 0 elements in buffer
+2
+Element 5 not available there are 4 elements in buffer
+First
+Everything is ok
+
 In file included from main.cpp:10:
-CircularBuffer.hpp:151:14: note:   in call to 'CircularBuffer<T>::Iterator CircularBuffer<T>::begin() [with T = int]'
-  151 |     Iterator begin() {
-      |              ^~~~~
-main.cpp:65:47: error: passing 'const CircularBuffer<int>' as 'this' argument discards qualifiers [-fpermissive]
-   65 |     for (auto iter = a.begin(); iter != a.end(); ++iter){
-      |                                               ^
-In file included from main.cpp:10:
-CircularBuffer.hpp:154:14: note:   in call to 'CircularBuffer<T>::Iterator CircularBuffer<T>::end() [with T = int]'
-  154 |     Iterator end() {
-      |              ^~~
-main.cpp:66:29: error: passing 'const CircularBuffer<int>' as 'this' argument discards qualifiers [-fpermissive]
-   66 |         if (iter != a.begin()){
-      |                             ^
-In file included from main.cpp:10:
-CircularBuffer.hpp:151:14: note:   in call to 'CircularBuffer<T>::Iterator CircularBuffer<T>::begin() [with T = int]'
-  151 |     Iterator begin() {
-      |              ^~~~~
-CircularBuffer.hpp: In instantiation of 'T CircularBuffer<T>::operator[](int) const [with T = int]':
-main.cpp:144:12:   required from here
-CircularBuffer.hpp:106:28: warning: comparison of integer expressions of different signedness: 'int' and 'const size_t' {aka 'const unsigned int'} [-Wsign-compare]
-  106 |         if (ind < 0 or ind >= count) {
-      |                        ~~~~^~~~~~~~
-CircularBuffer.hpp: In instantiation of 'CircularBuffer<T>::CircularBuffer(size_t) [with T = std::__cxx11::basic_string<char>; size_t = unsigned int]':
-main.cpp:203:32:   required from here
-CircularBuffer.hpp:14:16: error: no matching function for call to 'std::__cxx11::basic_string<char>::basic_string(size_t&)'
-   14 |         data = new T(n);
-      |                ^~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\string:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\locale_classes.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\ios_base.h:41,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:42,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:650:2: note: candidate: 'template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, const _Alloc&)'
-  650 |  basic_string(const _Tp& __t, const _Alloc& __a = _Alloc())
-      |  ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:650:2: note:   template argument deduction/substitution failed:
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\move.h:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\nested_exception.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\exception:144,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:39,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\type_traits: In substitution of 'template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = void]':
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:117:8:   required by substitution of 'template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = unsigned int; _Res = void; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:648:30:   required from 'CircularBuffer<T>::CircularBuffer(size_t) [with T = std::__cxx11::basic_string<char>; size_t = unsigned int]'
-main.cpp:203:32:   required from here
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\type_traits:2384:11: error: no type named 'type' in 'struct std::enable_if<false, void>'
- 2384 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
-      |           ^~~~~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\string:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\locale_classes.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\ios_base.h:41,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:42,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-CircularBuffer.hpp: In instantiation of 'CircularBuffer<T>::CircularBuffer(size_t) [with T = std::__cxx11::basic_string<char>; size_t = unsigned int]':
-main.cpp:203:32:   required from here
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:639:2: note: candidate: 'template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&)'
-  639 |  basic_string(const _Tp& __t, size_type __pos, size_type __n,
-      |  ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:639:2: note:   template argument deduction/substitution failed:
-In file included from main.cpp:10:
-CircularBuffer.hpp:14:16: note:   candidate expects 4 arguments, 1 provided
-   14 |         data = new T(n);
-      |                ^~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\string:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\locale_classes.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\ios_base.h:41,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:42,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:625:9: note: candidate: 'template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(_InputIterator, _InputIterator, const _Alloc&)'
-  625 |         basic_string(_InputIterator __beg, _InputIterator __end,
-      |         ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:625:9: note:   template argument deduction/substitution failed:
-In file included from main.cpp:10:
-CircularBuffer.hpp:14:16: note:   candidate expects 3 arguments, 1 provided
-   14 |         data = new T(n);
-      |                ^~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\string:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\locale_classes.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\ios_base.h:41,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:42,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:587:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:587:7: note:   candidate expects 2 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:583:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:583:7: note:   candidate expects 2 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:579:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::initializer_list<_Tp>, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:579:45: note:   no known conversion for argument 1 from 'size_t' {aka 'unsigned int'} to 'std::initializer_list<char>'
-  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
-      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:552:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  552 |       basic_string(basic_string&& __str) noexcept
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:552:35: note:   no known conversion for argument 1 from 'size_t' {aka 'unsigned int'} to 'std::__cxx11::basic_string<char>&&'
-  552 |       basic_string(basic_string&& __str) noexcept
-      |                    ~~~~~~~~~~~~~~~^~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:540:7: note: candidate: 'template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT, const _Alloc&)'
-  540 |       basic_string(size_type __n, _CharT __c, const _Alloc& __a = _Alloc())
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:540:7: note:   template argument deduction/substitution failed:
-In file included from main.cpp:10:
-CircularBuffer.hpp:14:16: note:   candidate expects 3 arguments, 1 provided
-   14 |         data = new T(n);
-      |                ^~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\string:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\locale_classes.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\ios_base.h:41,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:42,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:525:7: note: candidate: 'template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&)'
-  525 |       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:525:7: note:   template argument deduction/substitution failed:
-In file included from main.cpp:10:
-CircularBuffer.hpp:14:22: note:   cannot convert '((CircularBuffer<std::__cxx11::basic_string<char> >*)this)->CircularBuffer<std::__cxx11::basic_string<char> >::n' (type 'size_t' {aka 'unsigned int'}) to type 'const char*'
-   14 |         data = new T(n);
-      |                      ^
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\string:55,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\locale_classes.h:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\ios_base.h:41,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:42,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:510:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = unsigned int]'
-  510 |       basic_string(const _CharT* __s, size_type __n,
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:510:7: note:   candidate expects 3 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:492:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = unsigned int]'
-  492 |       basic_string(const basic_string& __str, size_type __pos,
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:492:7: note:   candidate expects 4 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:476:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = unsigned int]'
-  476 |       basic_string(const basic_string& __str, size_type __pos,
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:476:7: note:   candidate expects 3 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:461:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = unsigned int]'
-  461 |       basic_string(const basic_string& __str, size_type __pos,
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:461:7: note:   candidate expects 3 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:448:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  448 |       basic_string(const basic_string& __str)
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:448:40: note:   no known conversion for argument 1 from 'size_t' {aka 'unsigned int'} to 'const std::__cxx11::basic_string<char>&'
-  448 |       basic_string(const basic_string& __str)
-      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:440:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:440:34: note:   no known conversion for argument 1 from 'size_t' {aka 'unsigned int'} to 'const std::allocator<char>&'
-  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
-      |                    ~~~~~~~~~~~~~~^~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:431:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string() [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  431 |       basic_string()
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:431:7: note:   candidate expects 0 arguments, 1 provided
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:145:7: note: candidate: 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::__sv_wrapper, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]'
-  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
-      |       ^~~~~~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\basic_string.h:145:7: note:   candidate expects 2 arguments, 1 provided
-In file included from main.cpp:10:
-CircularBuffer.hpp: In instantiation of 'CircularBuffer<T>::Iterator::Iterator(T*, T*, T*, size_t, size_t, T*, T*) [with T = int; size_t = unsigned int]':
-CircularBuffer.hpp:152:16:   required from 'CircularBuffer<T>::Iterator CircularBuffer<T>::begin() [with T = int]'
+CircularBuffer.hpp: In instantiation of 'CircularBuffer<T>::Iterator::Iterator(T*, T*, T*) [with T = int]':
+CircularBuffer.hpp:146:16:   required from 'CircularBuffer<T>::Iterator CircularBuffer<T>::begin() const [with T = int]'
 main.cpp:65:30:   required from here
-CircularBuffer.hpp:166:12: warning: 'CircularBuffer<int>::Iterator::beginBuf' will be initialized after [-Wreorder]
-  166 |         T* beginBuf;
+CircularBuffer.hpp:160:12: warning: 'CircularBuffer<int>::Iterator::beginBuf' will be initialized after [-Wreorder]
+  160 |         T* beginBuf;
       |            ^~~~~~~~
-CircularBuffer.hpp:165:12: warning:   'int* CircularBuffer<int>::Iterator::endBuf' [-Wreorder]
-  165 |         T* endBuf;
+CircularBuffer.hpp:159:12: warning:   'int* CircularBuffer<int>::Iterator::endBuf' [-Wreorder]
+  159 |         T* endBuf;
       |            ^~~~~~
-CircularBuffer.hpp:184:9: warning:   when initialized here [-Wreorder]
-  184 |         Iterator(T* ptr_, T* beginBuf_, T* endBuf_, size_t size_, size_t countBuf_, T* head_, T* tail_) :
-      |         ^~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\algorithm:62,
-                 from main.cpp:6:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algo.h: In instantiation of 'void std::__sort(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = CircularBuffer<int>::Iterator; _Compare = __gnu_cxx::__ops::_Iter_less_iter]':
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algo.h:4828:18:   required from 'void std::sort(_RAIter, _RAIter) [with _RAIter = CircularBuffer<int>::Iterator]'
-main.cpp:191:25:   required from here
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algo.h:1968:22: error: no match for 'operator-' (operand types are 'CircularBuffer<int>::Iterator' and 'CircularBuffer<int>::Iterator')
- 1968 |     std::__lg(__last - __first) * 2,
-      |               ~~~~~~~^~~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algobase.h:67,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\char_traits.h:39,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_iterator.h:415:5: note: candidate: 'template<class _IteratorL, class _IteratorR> constexpr decltype ((__y.base() - __x.base())) std::operator-(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)'
-  415 |     operator-(const reverse_iterator<_IteratorL>& __x,
-      |     ^~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_iterator.h:415:5: note:   template argument deduction/substitution failed:
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\algorithm:62,
-                 from main.cpp:6:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algo.h:1968:22: note:   'CircularBuffer<int>::Iterator' is not derived from 'const std::reverse_iterator<_Iterator>'
- 1968 |     std::__lg(__last - __first) * 2,
-      |               ~~~~~~~^~~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algobase.h:67,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\char_traits.h:39,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ios:40,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\ostream:38,
-                 from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\iostream:39,
-                 from main.cpp:1:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_iterator.h:1212:5: note: candidate: 'template<class _IteratorL, class _IteratorR> constexpr decltype ((__x.base() - __y.base())) std::operator-(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&)'
- 1212 |     operator-(const move_iterator<_IteratorL>& __x,
-      |     ^~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_iterator.h:1212:5: note:   template argument deduction/substitution failed:
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\algorithm:62,
-                 from main.cpp:6:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_algo.h:1968:22: note:   'CircularBuffer<int>::Iterator' is not derived from 'const std::move_iterator<_IteratorL>'
- 1968 |     std::__lg(__last - __first) * 2,
-      |               ~~~~~~~^~~~~~~~~
-In file included from c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\vector:68,
-                 from main.cpp:3:
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_bvector.h:214:3: note: candidate: 'std::ptrdiff_t std::operator-(const std::_Bit_iterator_base&, const std::_Bit_iterator_base&)'
-  214 |   operator-(const _Bit_iterator_base& __x, const _Bit_iterator_base& __y)
-      |   ^~~~~~~~
-c:\mingw\lib\gcc\mingw32\9.2.0\include\c++\bits\stl_bvector.h:214:39: note:   no known conversion for argument 1 from 'CircularBuffer<int>::Iterator' to 'const std::_Bit_iterator_base&'
-  214 |   operator-(const _Bit_iterator_base& __x, const _Bit_iterator_base& __y)
-      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
-make: *** [makefile:2: all] Error 1
+CircularBuffer.hpp:178:18: warning:   when initialized here [-Wreorder]
+  178 |         explicit Iterator(T* ptr_, T* beginBuf_, T* endBuf_) :
+      |                  ^~~~~~~~
+CircularBuffer.hpp: In instantiation of 'CircularBuffer<T>::Iterator::Iterator(T*, T*, T*) [with T = std::__cxx11::basic_string<char>]':
+CircularBuffer.hpp:36:29:   required from 'void CircularBuffer<T>::addFirst(T) [with T = std::__cxx11::basic_string<char>]'
+main.cpp:204:24:   required from here
+CircularBuffer.hpp:160:12: warning: 'CircularBuffer<std::__cxx11::basic_string<char> >::Iterator::beginBuf' will be initialized after [-Wreorder]
+  160 |         T* beginBuf;
+      |            ^~~~~~~~
+CircularBuffer.hpp:159:12: warning:   'std::__cxx11::basic_string<char>* CircularBuffer<std::__cxx11::basic_string<char> >::Iterator::endBuf' [-Wreorder]
+  159 |         T* endBuf;
+      |            ^~~~~~
+CircularBuffer.hpp:178:18: warning:   when initialized here [-Wreorder]
+  178 |         explicit Iterator(T* ptr_, T* beginBuf_, T* endBuf_) :
+      |                  ^~~~~~~~
 
 
 
